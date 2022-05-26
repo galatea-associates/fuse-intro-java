@@ -13,6 +13,7 @@ import org.galatea.starter.service.IexService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,17 +55,17 @@ public class IexRestController {
   /**
    * Get the historical price for each symbol at each date.
    *
-   * @param symbols list of symbols to get prices for.
+   * @param symbol the symbol for which to get the prices.
    * @param date the date on which to get the prices.
    * @return a List of IexLastTradedPrice objects for the given symbols.
    */
   @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}",
           produces = {MediaType.APPLICATION_JSON_VALUE})
   public List<IexHistoricalPrice> getHistoricalPrice(
-      @RequestParam(value = "symbols") final List<String> symbols,
-      @RequestParam(value = "on") final String date,
+      @RequestParam(value = "symbol") final String symbol,
+      @RequestParam(value = "date") final String date,
       @RequestParam(value = "token") final String token) {
-    return iexService.getHistoricalPricesForSymbols(symbols, date, token);
+    return iexService.getHistoricalPricesForSymbols(symbol, date, token);
   }
 
 }
