@@ -46,8 +46,36 @@ public class IexService {
     }
   }
 
-  public List<IexHistoricalPrice> getHistoricalPrice(final String symbol, final String range, final String date) {
-    return iexClient.getHistoricalPrice(symbol, range, date);
+  /**
+   * Get the historical price of a stock.
+   *
+   * @param symbol stock symbol
+   * @return
+   */
+  public List<IexHistoricalPrice> getHistoricalPriceSymbol(final String symbol) {
+    return iexClient.getHistoricalPriceSymbol(symbol);
+  }
+
+  /**
+   * Get the historical price of a stock for a given range.
+   *
+   * @param symbol stock symbol
+   * @param range time duration for the stock price
+   * @return
+   */
+  public List<IexHistoricalPrice> getHistoricalPriceSymbolRange(final String symbol, final String range) {
+    return iexClient.getHistoricalPriceSymbolRange(symbol, range);
+  }
+
+  /**
+   * Get the historical price of a stock for a given date.
+   *
+   * @param symbol stock symbol
+   * @param date to find stock price variations of a given date
+   * @return
+   */
+  public List<IexHistoricalPrice> getHistoricalPriceSymbolDate(final String symbol, final String date) {
+    return iexClient.getHistoricalPriceSymbolDate(symbol, date);
   }
 
 }

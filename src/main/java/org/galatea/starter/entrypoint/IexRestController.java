@@ -1,5 +1,6 @@
 package org.galatea.starter.entrypoint;
 
+import java.util.Collections;
 import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,8 @@ public class IexRestController {
    */
   @GetMapping(value = "${mvc.iex.getAllSymbolsPath}", produces = {MediaType.APPLICATION_JSON_VALUE})
   public List<IexSymbol> getAllStockSymbols() {
-    System.out.println(iexService.getAllSymbols()); return iexService.getAllSymbols();
+    System.out.println(iexService.getAllSymbols());
+    return iexService.getAllSymbols();
   }
 
   /**
@@ -50,18 +52,31 @@ public class IexRestController {
   }
 
   /**
-   * Get the historical price of a stock
+   * Get the historical price of a stock.
    *
    * @param symbol symbol to find price for
-   * @param range
+   * @param range time duration for the stock price
    * @param date
    * @return JSON response with basic properties about the stock
    */
-  @GetMapping(value = "${mvc.iex.getHistoricalPrice}", produces = {MediaType.APPLICATION_JSON_VALUE})
+  @GetMapping(value = "${mvc.iex.getHistoricalPricePath}", produces = {
+          MediaType.APPLICATION_JSON_VALUE})
   public List<IexHistoricalPrice> getHistoricalPrice(
           @RequestParam (value = "symbol") final String symbol,
           @RequestParam (value = "range", required = false) final String range,
           @RequestParam (value = "date", required = false) final String date) {
-    return iexService.getHistoricalPrice(symbol, range, date);
+    if (symbol.isEmpty())
+      return Collections.emptyList();
+    else {
+      if (date == null || date.isEmpty()) {
+        if (range == null || range.isEmpty())
+          return iexService.getHistoricalPriceSymbol(symbol);
+        else
+          return iexService.getHistoricalPriceSymbolRange(symbol, range);
+      }
+      else
+        return iexService.getHistoricalPriceSymbolDate(symbol, date);
+    }
+
   }
 }
