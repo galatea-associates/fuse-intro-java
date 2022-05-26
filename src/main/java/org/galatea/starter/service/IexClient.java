@@ -46,6 +46,9 @@ public interface IexClient {
   List<IexHistoricalPrice> getHistoricalPricesForSymbols(
           @PathVariable("symbol") String symbol,
           @RequestParam("on") String date,
+          @RequestParam("from") String from,
+          @RequestParam("to") String to,
+          @RequestParam("interval") String interval,
           @RequestParam("token") String token);
 
 }

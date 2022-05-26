@@ -56,11 +56,14 @@ public class IexService {
    */
   public List<IexHistoricalPrice> getHistoricalPricesForSymbols(final String symbol,
                                                              final String date,
+                                                             final String from,
+                                                             final String to,
+                                                             final String interval,
                                                              final String token) {
-    if (symbol.isEmpty() || date.isEmpty()) {
+    if (symbol.isEmpty()) {
       return Collections.emptyList();
     } else {
-      return iexClient.getHistoricalPricesForSymbols(symbol, date, token);
+      return iexClient.getHistoricalPricesForSymbols(symbol, date, from, to, interval, token);
     }
   }
 
