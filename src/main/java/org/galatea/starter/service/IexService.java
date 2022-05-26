@@ -2,6 +2,7 @@ package org.galatea.starter.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -63,7 +64,8 @@ public class IexService {
     if (symbol.isEmpty()) {
       return Collections.emptyList();
     } else {
-      return iexClient.getHistoricalPricesForSymbols(symbol, date, from, to, interval, token);
+      return iexClient.getHistoricalPricesForSymbols(symbol, date, from, to, interval, token)
+          .stream().map(e -> e.fixDate()).collect(Collectors.toList());
     }
   }
 
