@@ -1,0 +1,27 @@
+{
+  "id" : "247c052a-3444-37f3-9a1a-3182781555db",
+  "request" : {
+    "url" : "/time-series/HISTORICAL_PRICES/FB?on=2019-11-12&token=pk_123",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : [{"close":194.47,"fclose":194.47,"fhigh":195.06,"flow":189.74,"fopen":190,"fvolume":17615454,"high":195.06,"low":189.74,"open":190,"symbol":"FB","uclose":194.47,"uhigh":195.06,"ulow":189.74,"uopen":190,"uvolume":17615454,"volume":17615454,"id":"HISTORICAL_PRICES","key":"FB","subkey":"","date":1573516800000,"updated":1652531948764.0068}],
+    "headers" : {
+      "Server" : "nginx",
+      "Date" : "Fri, 27 May 2022 13:46:43 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "iexcloud-messages-used" : "11",
+      "iexcloud-credits-used" : "11",
+      "iexcloud-premium-messages-used" : "0",
+      "iexcloud-premium-credits-used" : "0",
+      "X-Content-Type-Options" : "nosniff",
+      "Strict-Transport-Security" : "max-age=15768000",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Methods" : "GET, OPTIONS",
+      "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept, Request-Source"
+    }
+  },
+  "uuid" : "247c052a-3444-37f3-9a1a-3182781555db"
+}

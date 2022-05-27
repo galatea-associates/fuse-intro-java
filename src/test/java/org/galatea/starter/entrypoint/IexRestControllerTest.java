@@ -83,20 +83,34 @@ public class IexRestControllerTest extends ASpringTest {
   }
 
   @Test
-  public void testGetHistoricalPrices() throws Exception {
+  public void testGetHistoricalPricesDate() throws Exception {
 
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=FB&date=2019-11-12&token=pk_123")
+                .get("/iex/historicalPrices?symbol=FB&date=2019-11-12&token=pk_123")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].symbol", is("FB")))
         .andExpect(jsonPath("$[0].high").value(new BigDecimal("195.06")))
         .andExpect(jsonPath("$[0].low").value(new BigDecimal("189.74")))
-        .andExpect(jsonPath("$[0].date").value(new BigDecimal("2019-11-12")))
+        .andExpect(jsonPath("$[0].date").value("2019-11-12"))
         .andExpect(jsonPath("$[0].volume").value(17615454))
         .andExpect(jsonPath("$[0].open").value(new BigDecimal("190")))
         .andExpect(jsonPath("$[0].close").value(new BigDecimal("194.47")))
         .andReturn();
+  }
+
+  @Test
+  public void testGetHistoricalPricesInterval() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+                    org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                            .get("/iex/historicalPrices?symbol=FB&from=2019-11-11&to=2019-11-15&interval=2&token=pk_123")
+                            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$[0].date", is("2019-11-15")))
+            .andExpect(jsonPath("$[1].date", is("2019-11-13")))
+            .andExpect(jsonPath("$[2].date", is("2019-11-11")))
+            .andReturn();
   }
 }
