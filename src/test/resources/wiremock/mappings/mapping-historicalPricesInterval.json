@@ -1,0 +1,27 @@
+{
+  "id" : "a87693ce-7c39-3f9c-915b-4b3bcf316c99",
+  "request" : {
+    "url" : "/time-series/HISTORICAL_PRICES/FB?from=2019-11-11&to=2019-11-15&interval=2&token=pk_123",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "jsonBody" : [{"close":195.1,"fclose":195.1,"fhigh":195.3,"flow":193.38,"fopen":194.26,"fvolume":11530232,"high":195.3,"low":193.38,"open":194.26,"symbol":"FB","uclose":195.1,"uhigh":195.3,"ulow":193.38,"uopen":194.26,"uvolume":11530232,"volume":11530232,"id":"HISTORICAL_PRICES","key":"FB","subkey":"","date":1573776000000,"updated":1652531948764.0068},{"close":193.19,"fclose":193.19,"fhigh":195.7,"flow":192.74,"fopen":194.7,"fvolume":11009800,"high":195.7,"low":192.74,"open":194.7,"symbol":"FB","uclose":193.19,"uhigh":195.7,"ulow":192.74,"uopen":194.7,"uvolume":11009800,"volume":11009800,"id":"HISTORICAL_PRICES","key":"FB","subkey":"","date":1573603200000,"updated":1652531948764.0068},{"close":189.61,"fclose":189.61,"fhigh":190.08,"flow":188.54,"fopen":189.93,"fvolume":8637768,"high":190.08,"low":188.54,"open":189.93,"symbol":"FB","uclose":189.61,"uhigh":190.08,"ulow":188.54,"uopen":189.93,"uvolume":8637768,"volume":8637768,"id":"HISTORICAL_PRICES","key":"FB","subkey":"","date":1573430400000,"updated":1652531948764.0068}],
+    "headers" : {
+      "Server" : "nginx",
+      "Date" : "Fri, 27 May 2022 14:18:52 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "iexcloud-messages-used" : "31",
+      "iexcloud-credits-used" : "31",
+      "iexcloud-premium-messages-used" : "0",
+      "iexcloud-premium-credits-used" : "0",
+      "X-Content-Type-Options" : "nosniff",
+      "Strict-Transport-Security" : "max-age=15768000",
+      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Credentials" : "true",
+      "Access-Control-Allow-Methods" : "GET, OPTIONS",
+      "Access-Control-Allow-Headers" : "Origin, X-Requested-With, Content-Type, Accept, Request-Source"
+    }
+  },
+  "uuid" : "a87693ce-7c39-3f9c-915b-4b3bcf316c99"
+}
