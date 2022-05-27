@@ -13,7 +13,6 @@ import org.galatea.starter.service.IexService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +29,7 @@ public class IexRestController {
   /**
    * Exposes an endpoint to get all of the symbols available on IEX.
    *
+   * @param token for authorization.
    * @return a list of all IexStockSymbols.
    */
   @GetMapping(value = "${mvc.iex.getAllSymbolsPath}", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -42,6 +42,7 @@ public class IexRestController {
    * Get the last traded price for each of the symbols passed in.
    *
    * @param symbols list of symbols to get last traded price for.
+   * @param token for authorization.
    * @return a List of IexLastTradedPrice objects for the given symbols.
    */
   @GetMapping(value = "${mvc.iex.getLastTradedPricePath}", produces = {
@@ -53,11 +54,16 @@ public class IexRestController {
   }
 
   /**
-   * Get the historical price for each symbol at each date.
+   * Get the historical price for the symbol at each date.
    *
    * @param symbol the symbol for which to get the prices.
-   * @param date the date on which to get the prices.
-   * @return a List of IexLastTradedPrice objects for the given symbols.
+   * @param date     (optional) the date on which to get the prices.
+   * @param from     (optional) the start date of the interval.
+   * @param to       (optional) the end date of the interval.
+   * @param interval (optional) takes every n-th entry in the given interval.
+   * @param token for authorization.
+   * @return if date is provided: historical price data on the date.
+   *         if interval is provided: a list of historical price data at every point in the series.
    */
   @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}",
           produces = {MediaType.APPLICATION_JSON_VALUE})

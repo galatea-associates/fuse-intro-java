@@ -27,6 +27,7 @@ public class IexService {
   /**
    * Get all stock symbols from IEX.
    *
+   * @param token for authorization.
    * @return a list of all Stock Symbols from IEX.
    */
   public List<IexSymbol> getAllSymbols(final String token) {
@@ -37,6 +38,7 @@ public class IexService {
    * Get the last traded price for each Symbol that is passed in.
    *
    * @param symbols the list of symbols to get a last traded price for.
+   * @param token for authorization.
    * @return a list of last traded price objects for each Symbol that is passed in.
    */
   public List<IexLastTradedPrice> getLastTradedPriceForSymbols(final List<String> symbols,
@@ -49,11 +51,16 @@ public class IexService {
   }
 
   /**
-   * Get the historical price for each symbol at each date.
+   * Get the historical price for the symbol at each date.
    *
    * @param symbol the symbol for which to get the prices.
-   * @param date the date on which to get the prices.
-   * @return a List of IexLastTradedPrice objects for the given symbols.
+   * @param date     (optional) the date on which to get the prices.
+   * @param from     (optional) the start date of the interval.
+   * @param to       (optional) the end date of the interval.
+   * @param interval (optional) takes every n-th entry in the given interval.
+   * @param token for authorization.
+   * @return if date is provided: historical price data on the date.
+   *         if interval is provided: a list of historical price data at every point in the series.
    */
   public List<IexHistoricalPrice> getHistoricalPricesForSymbol(final String symbol,
                                                              final String date,
