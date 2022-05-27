@@ -55,7 +55,7 @@ public class IexService {
    * @param date the date on which to get the prices.
    * @return a List of IexLastTradedPrice objects for the given symbols.
    */
-  public List<IexHistoricalPrice> getHistoricalPricesForSymbols(final String symbol,
+  public List<IexHistoricalPrice> getHistoricalPricesForSymbol(final String symbol,
                                                              final String date,
                                                              final String from,
                                                              final String to,
@@ -64,7 +64,7 @@ public class IexService {
     if (symbol.isEmpty()) {
       return Collections.emptyList();
     } else {
-      return iexClient.getHistoricalPricesForSymbols(symbol, date, from, to, interval, token)
+      return iexClient.getHistoricalPricesForSymbol(symbol, date, from, to, interval, token)
           .stream().map(e -> e.fixDate()).collect(Collectors.toList());
     }
   }

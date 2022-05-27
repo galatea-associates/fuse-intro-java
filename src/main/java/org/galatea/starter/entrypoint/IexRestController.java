@@ -68,7 +68,7 @@ public class IexRestController {
       @RequestParam(value = "to",       required = false) final String to,
       @RequestParam(value = "interval", required = false) final String interval,
       @RequestParam(value = "token") final String token) {
-    return iexService.getHistoricalPricesForSymbols(symbol, date, from, to, interval, token);
+    return iexService.getHistoricalPricesForSymbol(symbol, date, from, to, interval, token);
   }
 
 }

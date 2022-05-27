@@ -43,7 +43,7 @@ public interface IexClient {
    * @return a List of IexLastTradedPrice objects for the given symbols.
    */
   @GetMapping("/time-series/HISTORICAL_PRICES/{symbol}")
-  List<IexHistoricalPrice> getHistoricalPricesForSymbols(
+  List<IexHistoricalPrice> getHistoricalPricesForSymbol(
           @PathVariable("symbol") String symbol,
           @RequestParam("on") String date,
           @RequestParam("from") String from,

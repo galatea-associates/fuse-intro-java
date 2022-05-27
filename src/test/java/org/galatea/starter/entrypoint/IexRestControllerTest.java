@@ -113,4 +113,16 @@ public class IexRestControllerTest extends ASpringTest {
             .andExpect(jsonPath("$[2].date", is("2019-11-11")))
             .andReturn();
   }
+
+  @Test
+  public void testGetHistoricalPricesInvalidDate() throws Exception {
+
+    MvcResult result = this.mvc.perform(
+                    org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                            .get("/iex/historicalPrices?symbol=FB&date=2019-02-30&token=pk_123")
+                            .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", is(Collections.emptyList())))
+            .andReturn();
+  }
 }
