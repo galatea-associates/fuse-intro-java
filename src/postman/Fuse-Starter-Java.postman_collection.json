@@ -140,7 +140,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}/iex/lastTradedPrice?symbols=IBM",
+					"raw": "http://{{host}}/tops/last?symbols=IBM",
 					"protocol": "http",
 					"host": [
 						"{{host}}"

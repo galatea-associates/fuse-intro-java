@@ -24,7 +24,7 @@ mvc:
    deleteMissionPath: /settlementEngine/mission/
    iex:
       getAllSymbolsPath: /iex/symbols
-      getLastTradedPricePath: /iex/lastTradedPrice
+      getLastTradedPricePath: /tops/last
    max-size-trace-payload: 50000
 jms:
    listener-concurrency: 1-5
