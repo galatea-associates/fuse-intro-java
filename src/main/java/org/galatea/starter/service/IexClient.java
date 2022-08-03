@@ -20,7 +20,7 @@ public interface IexClient {
    *
    * @return a list of all of the stock symbols supported by IEX.
    */
-  @GetMapping("/ref-data/symbols")
+  @GetMapping("/ref-data/symbols?token=pk_73824a25287d45ccb3d27bd8003c707c")
   List<IexSymbol> getAllSymbols();
 
   /**
@@ -29,7 +29,7 @@ public interface IexClient {
    * @param symbols stock symbols to get last traded price for.
    * @return a list of the last traded price for each of the symbols passed in.
    */
-  @GetMapping("/tops/last")
+  @GetMapping("/tops/last?token=pk_73824a25287d45ccb3d27bd8003c707c")
   List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols);
 
 }
