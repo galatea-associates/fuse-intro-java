@@ -63,6 +63,7 @@ public class IexRestControllerTest extends ASpringTest {
                 .get("/iex/lastTradedPrice?symbols=FB")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
+        // Change the price and the symbol to make it consistent
         .andExpect(jsonPath("$[0].symbol", is("FB")))
         .andExpect(jsonPath("$[0].price").value(new BigDecimal("186.34")))
         .andReturn();
