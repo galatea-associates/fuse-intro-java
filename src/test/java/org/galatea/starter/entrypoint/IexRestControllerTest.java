@@ -45,7 +45,8 @@ public class IexRestControllerTest extends ASpringTest {
     MvcResult result = this.mvc.perform(
         // note that we were are testing the fuse REST end point here, not the IEX end point.
         // the fuse end point in turn calls the IEX end point, which is WireMocked for this test.
-        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/iex/symbols")
+        org.springframework.test.web.servlet.request
+            .MockMvcRequestBuilders.get("/iex/symbols")
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         // some simple validations, in practice I would expect these to be much more comprehensive.

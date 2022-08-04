@@ -31,8 +31,9 @@ public class IexRestController {
    * @return a list of all IexStockSymbols.
    */
   @GetMapping(value = "${mvc.iex.getAllSymbolsPath}", produces = {MediaType.APPLICATION_JSON_VALUE})
-  public List<IexSymbol> getAllStockSymbols(@RequestParam(value = "token", required = false, defaultValue = "${spring.datasource.token}")
-  String token) {
+  public List<IexSymbol> getAllStockSymbols(@RequestParam(value = "token", required = false,
+      defaultValue = "${spring.datasource.token}")
+          final String token) {
     return iexService.getAllSymbols(token);
   }
 
@@ -46,8 +47,10 @@ public class IexRestController {
       MediaType.APPLICATION_JSON_VALUE})
   public List<IexLastTradedPrice> getLastTradedPrice(
       @RequestParam(value = "symbols") final List<String> symbols,
-      @RequestParam(value = "token", required = false, defaultValue = "${spring.datasource.token}")
-      String token) {
+      @RequestParam(value = "token",
+          required = false,
+          defaultValue = "${spring.datasource.token}")
+      final String token) {
     return iexService.getLastTradedPriceForSymbols(symbols, token);
   }
 
