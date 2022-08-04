@@ -65,8 +65,8 @@ public class IexRestController {
   @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}/{symbol}/{range}", produces = {
       MediaType.APPLICATION_JSON_VALUE})
   public List<IexHistoricalPrices> getHistoricalPrices(
-      @PathVariable String symbol,
-      @PathVariable String range,
+      @PathVariable final String symbol,
+      @PathVariable final String range,
       @RequestParam(value = "token",
           required = false,
           defaultValue = "${spring.datasource.token}")
