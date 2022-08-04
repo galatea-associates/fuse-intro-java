@@ -62,15 +62,16 @@ public class IexRestController {
    * @param token API access token.
    * @return a List of IexHistoricalPrice objects.
    */
-  @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}/{symbol}", produces = {
+  @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}/{symbol}/{range}", produces = {
       MediaType.APPLICATION_JSON_VALUE})
   public List<IexHistoricalPrices> getHistoricalPrices(
       @PathVariable String symbol,
+      @PathVariable String range,
       @RequestParam(value = "token",
           required = false,
           defaultValue = "${spring.datasource.token}")
       final String token) {
-    return iexService.getHistoricalPricesForSymbols(symbol, token);
+    return iexService.getHistoricalPricesForSymbols(symbol, range, token);
   }
 
 

@@ -47,9 +47,10 @@ public interface IexClient {
    * @param token stock symbols to get last traded price for.
    * @return a list of the last traded price for each of the symbols passed in.
    */
-  @GetMapping("/stock/{symbol}/chart")
+  @GetMapping("/stock/{symbol}/chart/{range}")
   List<IexHistoricalPrices> getHistoricalPricesForSymbols(
       @PathVariable String symbol,
+      @PathVariable String range,
       @RequestParam(value = "token",
           required = false,
           defaultValue = "${spring.datasource.token}")

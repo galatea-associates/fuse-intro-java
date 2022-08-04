@@ -55,7 +55,8 @@ public class IexService {
    * @return a list of last traded price objects for each Symbol that is passed in.
    */
   public List<IexHistoricalPrices> getHistoricalPricesForSymbols(final String symbol,
+      final String range,
       final String token) {
-    return iexClient.getHistoricalPricesForSymbols(symbol, token);
+    return iexClient.getHistoricalPricesForSymbols(symbol, range, token);
   }
 }
