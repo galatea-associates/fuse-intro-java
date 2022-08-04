@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.aspect4log.Log;
 import net.sf.aspect4log.Log.Level;
+import org.galatea.starter.domain.IexHistoricalPrices;
 import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.galatea.starter.service.IexService;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,5 +55,23 @@ public class IexRestController {
       final String token) {
     return iexService.getLastTradedPriceForSymbols(symbols, token);
   }
+
+  /**
+   * Get the Historical Prices.
+   *
+   * @param token API access token.
+   * @return a List of IexHistoricalPrice objects.
+   */
+  @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}/{symbol}", produces = {
+      MediaType.APPLICATION_JSON_VALUE})
+  public List<IexHistoricalPrices> getHistoricalPrices(
+      @PathVariable String symbol,
+      @RequestParam(value = "token",
+          required = false,
+          defaultValue = "${spring.datasource.token}")
+      final String token) {
+    return iexService.getHistoricalPricesForSymbols(symbol, token);
+  }
+
 
 }
