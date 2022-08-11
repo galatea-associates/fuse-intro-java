@@ -9,40 +9,31 @@
     "status" : 200,
     "jsonBody" : [
       {
-        "close": 40.53,
-        "high": 41.49,
-        "low": 39.9,
-        "open": 40.45,
-        "symbol": "AA",
-        "volume": 5634414,
-        "date": 1628467200000
+        "close":44.83,
+        "high":45.79,
+        "low":44.4,
+        "open":45.63,
+        "symbol":"AA",
+        "volume":5312466,
+        "date":"2022-07-08"
       },
       {
-        "close": 43.87,
-        "high": 44.15,
-        "low": 40.65,
-        "open": 40.69,
-        "symbol": "AA",
-        "volume": 11404034,
-        "date": 1628553600000
+        "close":42.73,
+        "high":44.38,
+        "low":42.59,
+        "open":43.82,
+        "symbol":"AA",
+        "volume":4849341,
+        "date":"2022-07-11"
       },
       {
-        "close": 44.66,
-        "high": 44.74,
-        "low": 43.15,
-        "open": 43.48,
-        "symbol": "AA",
-        "volume": 7674533,
-        "date": 1628640000000
-      },
-      {
-        "close": 45.15,
-        "high": 45.4,
-        "low": 43.7701,
-        "open": 44.29,
-        "symbol": "AA",
-        "volume": 6678342,
-        "date": 1628726400000
+        "close":42.25,
+        "high":42.95,
+        "low":41.1612,
+        "open":41.65,
+        "symbol":"AA",
+        "volume":4310102,
+        "date":"2022-07-12"
       }
     ],
     "headers" : {

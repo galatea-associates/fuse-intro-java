@@ -49,14 +49,17 @@ public class IexService {
   }
 
   /**
-   * Get the last traded price for each Symbol that is passed in.
+   * Gets the historic prices for a given symbol and range.
    *
-   * @param token the list of symbols to get a last traded price for.
-   * @return a list of last traded price objects for each Symbol that is passed in.
+   * @param token String of the API access token.
+   * @param symbol String containing the symbol being accessed.
+   * @param range String containing the time over which to return results. See the IEX API docs for
+   * valid ranges.
+   * @return a list of historical prices objects for the symbol passed.
    */
-  public List<IexHistoricalPrices> getHistoricalPricesForSymbols(final String symbol,
+  public List<IexHistoricalPrices> getHistoricalPrices(final String symbol,
       final String range,
       final String token) {
-    return iexClient.getHistoricalPricesForSymbols(symbol, range, token);
+    return iexClient.getHistoricalPrices(symbol, range, token);
   }
 }

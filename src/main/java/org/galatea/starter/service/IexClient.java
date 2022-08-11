@@ -44,11 +44,14 @@ public interface IexClient {
    * Get the last traded price for each stock symbol passed in.
    * See https://iextrading.com/developer/docs/#last.
    *
-   * @param token stock symbols to get last traded price for.
+   * @param token String containing the API access token.
+   * @param symbol String containing the symbol being accessed.
+   * @param range String containing the time over which to return results. See the IEX API docs for
+   * valid ranges.
    * @return a list of the last traded price for each of the symbols passed in.
    */
   @GetMapping("/stock/{symbol}/chart/{range}")
-  List<IexHistoricalPrices> getHistoricalPricesForSymbols(
+  List<IexHistoricalPrices> getHistoricalPrices(
       @PathVariable String symbol,
       @PathVariable String range,
       @RequestParam(value = "token",

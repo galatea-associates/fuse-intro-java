@@ -57,9 +57,12 @@ public class IexRestController {
   }
 
   /**
-   * Get the Historical Prices.
+   * Gets the Historical Prices for a given symbol and range
    *
    * @param token API access token.
+   * @param symbol String containing the symbol being accessed.
+   * @param range String containing the time over which to return results. See the IEX API docs for
+   * valid ranges.
    * @return a List of IexHistoricalPrice objects.
    */
   @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}/{symbol}/{range}", produces = {
@@ -71,7 +74,7 @@ public class IexRestController {
           required = false,
           defaultValue = "${spring.datasource.token}")
       final String token) {
-    return iexService.getHistoricalPricesForSymbols(symbol, range, token);
+    return iexService.getHistoricalPrices(symbol, range, token);
   }
 
 
