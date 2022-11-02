@@ -1,6 +1,7 @@
 package org.galatea.starter.service;
 
 import java.util.List;
+import org.galatea.starter.domain.IexHistoricalPrices;
 import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -32,4 +33,14 @@ public interface IexClient {
   @GetMapping("/tops/last")
   List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols);
 
+  /**
+   * Get the historical price for each stock passed in. See
+   * https://iexcloud.io/docs/api/#historical-prices
+   *
+   * @param symbol stock symbols to get historical prices for.
+   * @return a list of the historical prices for each of the symbols passed in.
+   */
+
+  @GetMapping("/stock/chart/{range}/{date}")
+  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@RequestParam("symbol") String symbol, @RequestParam("range") String range);
 }

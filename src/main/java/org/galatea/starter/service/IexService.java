@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.galatea.starter.domain.IexHistoricalPrices;
 import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,14 @@ public class IexService {
     }
   }
 
+  /**
+   * Get the historical prices for each Symbol that is passed in.
+   *
+   * @param symbols the list of symbols to get historical prices for.
+   * @return a list of historical price objects for each symbol passed in.
+   */
+  public List<IexHistoricalPrices> getHistoricalPricesForSymbols(final String symbol, String range) {
+    return iexClient.getHistoricalPricesForSymbols(symbol, range);
+  }
 
 }
