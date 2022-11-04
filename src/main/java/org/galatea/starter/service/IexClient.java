@@ -38,9 +38,11 @@ public interface IexClient {
    * https://iexcloud.io/docs/api/#historical-prices
    *
    * @param symbol stock symbols to get historical prices for.
+   * @param range an optional range to check, optional
+   * @param date an optional date
    * @return a list of the historical prices for each of the symbols passed in.
    */
 
-  @GetMapping("/stock/chart/{range}/{date}")
-  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@RequestParam("symbol") String symbol, @RequestParam("range") String range);
+  @GetMapping("/stock/chart")
+  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@RequestParam("symbol") String symbol, @RequestParam(name= "range", required = false) String range, @RequestParam(name = "date", required = false) String date);
 }

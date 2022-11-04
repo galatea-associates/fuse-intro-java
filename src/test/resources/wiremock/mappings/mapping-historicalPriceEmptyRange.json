@@ -1,11 +1,11 @@
 {
   "name" : "historical_price_empty_range",
   "request" : {
-    "url" : "/stock/chart/max/{date}?symbol=AAPL&range=",
+    "url" : "/stock/chart?symbol=AAPL&range=",
     "method" : "GET"
   },
   "response" : {
-    "status" : 400,
+    "status" : 200,
     "jsonBody" : [{
       "symbol":"AAPL",
       "close":116.59,

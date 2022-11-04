@@ -87,7 +87,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL&range=max")
+                .get("/iex/historicalPrice?symbol=AAPL&date=20190220")
                 // This URL will be hit by the MockMvc client. The result is configured in the file
                 // src/test/resources/wiremock/mappings/mapping-historicalPrice.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -102,11 +102,37 @@ public class IexRestControllerTest extends ASpringTest {
   public void testGetHistoricalPriceEmptySymbol() throws Exception{
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=&range=max")
+                .get("/iex/historicalPrice?symbol=&date=20190220")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].symbol", is("Invalid")))
+        .andExpect(jsonPath("$", is(Collections.emptyList())))
         .andReturn();
+  }
+
+  @Test
+  public void testGetHistoricalPriceEmptyRange() throws Exception{
+    MvcResult result = this.mvc.perform(
+            org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                .get("/iex/historicalPrice?symbol=AAPL&range=")
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
+        .andReturn();
+
+    result.toString();
+  }
+
+  @Test
+  public void testGetHistoricalPriceEmptyDate() throws Exception{
+    MvcResult result = this.mvc.perform(
+            org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                .get("/iex/historicalPrice?symbol=AAPL&date=")
+                .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
+        .andReturn();
+
+    result.toString();
   }
 
 }

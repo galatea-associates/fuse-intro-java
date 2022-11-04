@@ -1,7 +1,7 @@
 {
   "name" : "historical_price",
   "request" : {
-    "url" : "/stock/chart/max/{date}?symbol=AAPL&range=max",
+    "url" : "/stock/chart?symbol=AAPL&date=20190220",
     "method" : "GET"
   },
   "response" : {
