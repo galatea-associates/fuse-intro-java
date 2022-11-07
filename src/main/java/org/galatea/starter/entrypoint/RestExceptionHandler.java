@@ -1,6 +1,7 @@
 package org.galatea.starter.entrypoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import feign.FeignException;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.galatea.starter.entrypoint.exception.EntityNotFoundException;
@@ -70,6 +71,14 @@ public class RestExceptionHandler {
     log.debug("Outdated input data sent", exception);
 
     ApiError error = new ApiError(HttpStatus.CONFLICT, exception.toString());
+    return buildResponseEntity(error);
+  }
+
+  @ExceptionHandler(FeignException.class)
+  protected ResponseEntity<Object> handleNotFound(
+      final FeignException exception) {
+    String errorMessage = exception.getMessage();
+    ApiError error = new ApiError(HttpStatus.NOT_FOUND, errorMessage);
     return buildResponseEntity(error);
   }
 

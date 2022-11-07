@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import feign.FeignException;
 import java.math.BigDecimal;
 import java.util.Collections;
 import junitparams.JUnitParamsRunner;
@@ -100,13 +101,13 @@ public class IexRestControllerTest extends ASpringTest {
 
   @Test
   public void testGetHistoricalPriceEmptySymbol() throws Exception{
-    MvcResult result = this.mvc.perform(
-            org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=&date=20190220")
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", is(Collections.emptyList())))
-        .andReturn();
+
+      MvcResult result = this.mvc.perform(
+              org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                  .get("/iex/historicalPrice?symbol=&date=20190220")
+                  .accept(MediaType.APPLICATION_JSON_VALUE))
+          .andExpect(status().isNotFound())
+          .andReturn();
   }
 
   @Test
@@ -119,7 +120,6 @@ public class IexRestControllerTest extends ASpringTest {
         .andExpect(jsonPath("$[0].symbol", is("AAPL")))
         .andReturn();
 
-    result.toString();
   }
 
   @Test
@@ -131,8 +131,6 @@ public class IexRestControllerTest extends ASpringTest {
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].symbol", is("AAPL")))
         .andReturn();
-
-    result.toString();
   }
 
 }
