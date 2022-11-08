@@ -75,10 +75,11 @@ public class RestExceptionHandler {
   }
 
   @ExceptionHandler(FeignException.class)
-  protected ResponseEntity<Object> handleNotFound(
+  protected ResponseEntity<Object> handleBadrequest(
       final FeignException exception) {
     String errorMessage = exception.getMessage();
-    ApiError error = new ApiError(HttpStatus.NOT_FOUND, errorMessage);
+
+    ApiError error = new ApiError(HttpStatus.BAD_REQUEST, errorMessage);
     return buildResponseEntity(error);
   }
 

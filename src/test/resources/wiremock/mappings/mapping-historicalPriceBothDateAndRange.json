@@ -1,11 +1,11 @@
 {
-  "name" : "historical_price_empty_symbol",
+  "name" : "historical_price",
   "request" : {
-    "url" : "/stock//chart",
+    "url" : "/stock/AAPL/chart/max/20190220",
     "method" : "GET"
   },
   "response" : {
-    "status" : 400,
+    "status" : 200,
     "jsonBody" : [],
     "headers" : {
       "Server" : "nginx",

@@ -11,6 +11,7 @@ import junitparams.JUnitParamsRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.galatea.starter.ASpringTest;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,20 +95,22 @@ public class IexRestControllerTest extends ASpringTest {
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].symbol", is("AAPL")))
-        .andExpect(jsonPath("$[0].close").value(new BigDecimal("116.59")))
-        .andExpect(jsonPath("$[0].high").value(new BigDecimal("117.49")))
+        .andExpect(jsonPath("$[0].close").value(new BigDecimal("43.0075")))
+        .andExpect(jsonPath("$[0].high").value(new BigDecimal("43.33")))
+        .andExpect(jsonPath("$[0].date").value("2019-02-20"))
         .andReturn();
   }
 
   @Test
   public void testGetHistoricalPriceEmptySymbol() throws Exception{
 
-      MvcResult result = this.mvc.perform(
-              org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                  .get("/iex/historicalPrice?symbol=&date=20190220")
-                  .accept(MediaType.APPLICATION_JSON_VALUE))
-          .andExpect(status().isNotFound())
-          .andReturn();
+        MvcResult result = this.mvc.perform(
+                org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+                    .get("/iex/historicalPrice?symbol=")
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+            .andExpect(status().is4xxClientError())
+            .andReturn();
+
   }
 
   @Test
@@ -116,10 +119,8 @@ public class IexRestControllerTest extends ASpringTest {
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
                 .get("/iex/historicalPrice?symbol=AAPL&range=")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
+        .andExpect(status().is4xxClientError())
         .andReturn();
-
   }
 
   @Test
@@ -128,8 +129,7 @@ public class IexRestControllerTest extends ASpringTest {
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
                 .get("/iex/historicalPrice?symbol=AAPL&date=")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
+        .andExpect(status().is4xxClientError())
         .andReturn();
   }
 

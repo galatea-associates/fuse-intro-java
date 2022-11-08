@@ -52,7 +52,17 @@ public class IexService {
    * @param date an optional date to check
    */
   public List<IexHistoricalPrices> getHistoricalPricesForSymbols(final String symbol, final String range, final String date) {
+
+    if (symbol == null) { // No symbol
+      return iexClient.getHistoricalPrices();
+    } else if(range == null && date == null){ // Only symbol specified
+      return iexClient.getHistoricalPricesForSymbol(symbol);
+    } else if (range != null && date == null) { // Range specified but not date
+      return iexClient.getHistoricalPricesRange(symbol, range);
+    } else if (range == null && date != null) { // Date specified but not range
+      return iexClient.getHistoricalPricesDate(symbol, date);
+    }
+
     return iexClient.getHistoricalPricesForSymbols(symbol, range, date);
   }
-
 }

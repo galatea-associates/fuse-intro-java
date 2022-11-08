@@ -6,6 +6,7 @@ import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -42,7 +43,23 @@ public interface IexClient {
    * @param date an optional date
    * @return a list of the historical prices for each of the symbols passed in.
    */
+  @GetMapping("/stock/{symbol}/chart/{range}/{date}")
+  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@PathVariable(name="symbol", required = false) String symbol,
+      @PathVariable(name= "range", required = false) String range,
+      @PathVariable(name = "date", required = false) String date);
 
   @GetMapping("/stock/chart")
-  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@RequestParam("symbol") String symbol, @RequestParam(name= "range", required = false) String range, @RequestParam(name = "date", required = false) String date);
+  List<IexHistoricalPrices> getHistoricalPrices();
+
+  @GetMapping("/stock/{symbol}/chart")
+  List<IexHistoricalPrices> getHistoricalPricesForSymbol(@PathVariable(name="symbol") String symbol);
+
+  @GetMapping("/stock/{symbol}/chart/{range}")
+  List<IexHistoricalPrices> getHistoricalPricesRange(@PathVariable(name="symbol") String symbol,
+      @PathVariable(name="range") String range);
+
+  @GetMapping("/stock/{symbol}/chart/date/{date}")
+  List<IexHistoricalPrices> getHistoricalPricesDate(@PathVariable(name="symbol") String symbol,
+      @PathVariable(name="date") String date);
+
 }

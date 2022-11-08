@@ -1,19 +1,19 @@
 {
   "name" : "historical_price",
   "request" : {
-    "url" : "/stock/chart?symbol=AAPL&date=20190220",
+    "url" : "/stock/AAPL/chart/date/20190220",
     "method" : "GET"
   },
   "response" : {
     "status" : 200,
     "jsonBody" : [{
       "symbol":"AAPL",
-      "close":116.59,
-      "high":117.49,
-      "low":116.22,
-      "open": 116.57,
-      "volume": 46691331,
-      "date": "2020-01-26"
+      "close":43.0075,
+      "high":43.33,
+      "low":42.7475,
+      "open": 42.7975,
+      "volume": 104457448,
+      "date": "2019-02-20"
     }],
   "headers" : {
     "Server" : "nginx",
