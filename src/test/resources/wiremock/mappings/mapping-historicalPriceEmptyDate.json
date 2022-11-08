@@ -7,7 +7,7 @@
   "response" : {
     "status" : 400,
     "jsonBody" : [{
-      "error": "\"date\" is not allowed"
+      "error": "\"date\" is not allowed to be empty"
     }],
     "headers" : {
       "Server" : "nginx",
