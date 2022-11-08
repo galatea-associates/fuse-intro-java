@@ -22,7 +22,7 @@ public interface IexClient {
    *
    * @return a list of all of the stock symbols supported by IEX.
    */
-  @GetMapping("/ref-data/symbols")
+  @GetMapping("/ref-data/symbols?token=${spring.rest.iexToken}")
   List<IexSymbol> getAllSymbols();
 
   /**
