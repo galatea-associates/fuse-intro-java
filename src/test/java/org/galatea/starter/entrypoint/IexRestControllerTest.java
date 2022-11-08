@@ -89,7 +89,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL")
+                .get("/iex/historicalPrice?symbol=AAPL&date=20190220")
                 // This URL will be hit by the MockMvc client. The result is configured in the file
                 // src/test/resources/wiremock/mappings/mapping-historicalPrice.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -108,7 +108,7 @@ public class IexRestControllerTest extends ASpringTest {
                 org.springframework.test.web.servlet.request.MockMvcRequestBuilders
                     .get("/iex/historicalPrice?symbol=")
                     .accept(MediaType.APPLICATION_JSON_VALUE))
-            .andExpect(status().isNotFound())
+            .andExpect(status().is4xxClientError())
             .andReturn();
 
   }
@@ -119,7 +119,7 @@ public class IexRestControllerTest extends ASpringTest {
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
                 .get("/iex/historicalPrice?symbol=AAPL&range=")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isBadRequest())
+        .andExpect(status().is4xxClientError())
         .andReturn();
   }
 
@@ -129,18 +129,7 @@ public class IexRestControllerTest extends ASpringTest {
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
                 .get("/iex/historicalPrice?symbol=AAPL&date=")
                 .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isBadRequest())
-        .andReturn();
-  }
-
-  @Test
-  public void testGetHistoricalPriceBothDateAndRange() throws Exception{
-    MvcResult result = this.mvc.perform(
-            org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL&range=max&date=20190220")
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isOk())
-        .andExpect(jsonPath("$", is(Collections.emptyList())))
+        .andExpect(status().is4xxClientError())
         .andReturn();
   }
 

@@ -5,7 +5,7 @@
     "method" : "GET"
   },
   "response" : {
-    "status" : 404,
+    "status" : 400,
     "jsonBody" : [],
     "headers" : {
       "Server" : "nginx",
