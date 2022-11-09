@@ -25,6 +25,7 @@ mvc:
    iex:
       getAllSymbolsPath: /iex/symbols
       getLastTradedPricePath: /iex/lastTradedPrice
+      getHistoricalPricesPath: /iex/historicalPrice
    max-size-trace-payload: 50000
 jms:
    listener-concurrency: 1-5
@@ -47,6 +48,7 @@ spring:
    rest:
       # this points at the local WireMock server in the test environment.
       iexBasePath: http://localhost:${wiremock.server.port}/
+      iexToken: DUMMY_TOKEN
 
 ---
 # Dev properties go here
@@ -56,7 +58,9 @@ spring:
       username: sa
       password:
    rest:
-      iexBasePath: https://api.iextrading.com/1.0
+      iexBasePath: https://cloud.iexapis.com/stable/
+      iexToken: pk_8bf2fa8153b64102b1d34199273d2063
+
 # set debug to get spring to log the classpath (and other things) on startup
 debug: true
 

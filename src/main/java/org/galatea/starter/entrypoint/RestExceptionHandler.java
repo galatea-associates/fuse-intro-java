@@ -1,6 +1,7 @@
 package org.galatea.starter.entrypoint;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import feign.FeignException;
 import javax.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.galatea.starter.entrypoint.exception.EntityNotFoundException;
@@ -71,6 +72,20 @@ public class RestExceptionHandler {
 
     ApiError error = new ApiError(HttpStatus.CONFLICT, exception.toString());
     return buildResponseEntity(error);
+  }
+
+  @ExceptionHandler(FeignException.class)
+  protected ResponseEntity<Object> handleBadRequest(
+      final FeignException exception) {
+
+    int status = exception.status();
+    String errorMessage = exception.getMessage();
+
+    if(status == 404){
+      return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, errorMessage));
+    }
+
+    return buildResponseEntity(new ApiError(HttpStatus.BAD_REQUEST, errorMessage));
   }
 
   private ResponseEntity<Object> buildResponseEntity(final ApiError apiError) {
