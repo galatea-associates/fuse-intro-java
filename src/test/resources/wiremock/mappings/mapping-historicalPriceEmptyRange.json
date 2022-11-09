@@ -1,7 +1,7 @@
 {
   "name" : "historical_price_empty_range",
   "request" : {
-    "url" : "/stock/AAPL/chart",
+    "url" : "/stock/AAPL/chart?token=DUMMY_TOKEN&range=",
     "method" : "GET"
   },
   "response" : {

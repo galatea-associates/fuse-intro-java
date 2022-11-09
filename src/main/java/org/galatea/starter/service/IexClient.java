@@ -31,7 +31,7 @@ public interface IexClient {
    * @param symbols stock symbols to get last traded price for.
    * @return a list of the last traded price for each of the symbols passed in.
    */
-  @GetMapping("/tops/last")
+  @GetMapping("/tops/last?token=${spring.rest.iexToken}")
   List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols);
 
   /**
@@ -39,26 +39,26 @@ public interface IexClient {
    * https://iexcloud.io/docs/api/#historical-prices
    *
    * @param symbol stock symbols to get historical prices for.
-   * @param range an optional range to check, optional
+   * @param range an optional range to check
    * @param date an optional date
    * @return a list of the historical prices for each of the symbols passed in.
    */
-  @GetMapping("/stock/{symbol}/chart/{range}/{date}")
-  List<IexHistoricalPrices> getHistoricalPricesForSymbols(@PathVariable(name="symbol", required = false) String symbol,
+  @GetMapping("/stock/{symbol}/chart/{range}/{date}?chartByDay=True&token=${spring.rest.iexToken}")
+  List<IexHistoricalPrices> getHistoricalPricesForSymbolDateAndRange(@PathVariable(name="symbol", required = false) String symbol,
       @PathVariable(name= "range", required = false) String range,
       @PathVariable(name = "date", required = false) String date);
 
-  @GetMapping("/stock/chart")
+  @GetMapping("/stock/chart?token=${spring.rest.iexToken}")
   List<IexHistoricalPrices> getHistoricalPrices();
 
-  @GetMapping("/stock/{symbol}/chart")
+  @GetMapping("/stock/{symbol}/chart?token=${spring.rest.iexToken}")
   List<IexHistoricalPrices> getHistoricalPricesForSymbol(@PathVariable(name="symbol") String symbol);
 
-  @GetMapping("/stock/{symbol}/chart/{range}")
+  @GetMapping("/stock/{symbol}/chart/{range}?token=${spring.rest.iexToken}")
   List<IexHistoricalPrices> getHistoricalPricesRange(@PathVariable(name="symbol") String symbol,
       @PathVariable(name="range") String range);
 
-  @GetMapping("/stock/{symbol}/chart/date/{date}")
+  @GetMapping("/stock/{symbol}/chart/date/{date}?chartByDay=True&token=${spring.rest.iexToken}")
   List<IexHistoricalPrices> getHistoricalPricesDate(@PathVariable(name="symbol") String symbol,
       @PathVariable(name="date") String date);
 

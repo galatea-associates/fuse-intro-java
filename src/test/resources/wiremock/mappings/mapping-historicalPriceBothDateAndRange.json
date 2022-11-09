@@ -1,12 +1,20 @@
 {
-  "name" : "historical_price",
+  "name" : "historical_price_both_date_and_range",
   "request" : {
-    "url" : "/stock/AAPL/chart/max/20190220",
+    "url" : "/stock/AAPL/chart/max/20190220?chartByDay=True&token=DUMMY_TOKEN",
     "method" : "GET"
   },
   "response" : {
     "status" : 200,
-    "jsonBody" : [],
+    "jsonBody" : [{
+      "symbol":"AAPL",
+      "close":43.0075,
+      "high":43.33,
+      "low":42.7475,
+      "open": 42.7975,
+      "volume": 104457448,
+      "date": "2019-02-20"
+    }],
     "headers" : {
       "Server" : "nginx",
       "Date" : "Thu, 08 Aug 2019 14:08:53 GMT",

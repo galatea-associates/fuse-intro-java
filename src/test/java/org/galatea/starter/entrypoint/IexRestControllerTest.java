@@ -47,7 +47,7 @@ public class IexRestControllerTest extends ASpringTest {
     MvcResult result = this.mvc.perform(
         // note that we were are testing the fuse REST end point here, not the IEX end point.
         // the fuse end point in turn calls the IEX end point, which is WireMocked for this test.
-        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/iex/symbols")
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/iex/symbols?token=DUMMY_TOKEN")
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         // some simple validations, in practice I would expect these to be much more comprehensive.
@@ -62,7 +62,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-            .get("/iex/lastTradedPrice?symbols=FB")
+            .get("/iex/lastTradedPrice?token=DUMMY_TOKEN&symbols=FB")
             // This URL will be hit by the MockMvc client. The result is configured in the file
             // src/test/resources/wiremock/mappings/mapping-lastTradedPrice.json
             .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -77,7 +77,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-            .get("/iex/lastTradedPrice?symbols=")
+            .get("/iex/lastTradedPrice?token=DUMMY_TOKEN&symbols=")
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(Collections.emptyList())))
@@ -89,7 +89,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL")
+                .get("/iex/historicalPrice?token=DUMMY_TOKEN&symbol=AAPL")
                 // This URL will be hit by the MockMvc client. The result is configured in the file
                 // src/test/resources/wiremock/mappings/mapping-historicalPrice.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -106,7 +106,9 @@ public class IexRestControllerTest extends ASpringTest {
 
         MvcResult result = this.mvc.perform(
                 org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                    .get("/iex/historicalPrice?symbol=")
+                    .get("/iex/historicalPrice?token=DUMMY_TOKEN&symbol=")
+                    // This URL will be hit by the MockMvc client. The result is configured in the file
+                    // src/test/resources/wiremock/mappings/mapping-historicalPriceEmptySymbol.json
                     .accept(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(status().isNotFound())
             .andReturn();
@@ -117,7 +119,9 @@ public class IexRestControllerTest extends ASpringTest {
   public void testGetHistoricalPriceEmptyRange() throws Exception{
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL&range=")
+                .get("/iex/historicalPrice?token=DUMMY_TOKEN&symbol=AAPL&range=")
+                // This URL will be hit by the MockMvc client. The result is configured in the file
+                // src/test/resources/wiremock/mappings/mapping-historicalPriceEmptyRange.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isBadRequest())
         .andReturn();
@@ -127,7 +131,9 @@ public class IexRestControllerTest extends ASpringTest {
   public void testGetHistoricalPriceEmptyDate() throws Exception{
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL&date=")
+                .get("/iex/historicalPrice?token=DUMMY_TOKEN&symbol=AAPL&date=")
+                // This URL will be hit by the MockMvc client. The result is configured in the file
+                // src/test/resources/wiremock/mappings/mapping-historicalPriceEmptyDate.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isBadRequest())
         .andReturn();
@@ -137,10 +143,12 @@ public class IexRestControllerTest extends ASpringTest {
   public void testGetHistoricalPriceBothDateAndRange() throws Exception{
     MvcResult result = this.mvc.perform(
             org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-                .get("/iex/historicalPrice?symbol=AAPL&range=max&date=20190220")
+                .get("/iex/historicalPrice?token=DUMMY_TOKEN&symbol=AAPL&range=max&date=20190220")
+                // This URL will be hit by the MockMvc client. The result is configured in the file
+                // src/test/resources/wiremock/mappings/mapping-historicalPriceBothDateAndRange.json
                 .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
-        .andExpect(jsonPath("$", is(Collections.emptyList())))
+        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
         .andReturn();
   }
 

@@ -1,7 +1,7 @@
 {
   "name" : "historical_price_empty_date",
   "request" : {
-    "url" : "/stock/AAPL/chart/date/",
+    "url" : "/stock/AAPL/chart/?&token=DUMMY_TOKEN",
     "method" : "GET"
   },
   "response" : {

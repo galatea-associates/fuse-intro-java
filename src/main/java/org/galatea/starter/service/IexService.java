@@ -48,31 +48,38 @@ public class IexService {
     }
   }
 
-  /** Get historical prices for the symbol
-   * @param symbol a symbol to find historical prices for
+  /** Get historical prices for the symbol, range, and date combination
+   * @param symbol a valid symbol
    * @param range an optional range to check
-   * @param date an optional date to check
+   * @param date an optional date to check; has priority over range
    */
   public List<IexHistoricalPrices> getHistoricalPricesForSymbols(final String symbol, final String range, final String date) throws Exception{
 
-    // Input validation
-    if(StringUtils.isBlank(symbol)){ // Symbol is required
+    // Throw an error if an invalid symbol was provided
+    if(StringUtils.isBlank(symbol)) {
       throw new EntityNotFoundException(symbol.getClass(), symbol);
-    } else if(StringUtils.isBlank(range) && StringUtils.isBlank(date)){ // No range or date specified
+    }
+
+    // Call the endpoint based on input. Date has priority when both date and range are provided.
+    if(StringUtils.isBlank(range) == false && StringUtils.isBlank(date) == false) {
+      return iexClient.getHistoricalPricesForSymbolDateAndRange(symbol, range, date);
+    } else if(range == null && date == null) {
       return iexClient.getHistoricalPricesForSymbol(symbol);
-    } else if ((StringUtils.isBlank(range) == false) && StringUtils.isBlank(date)) { // Range specified but not date
-      if(range == ""){
+    } else if(StringUtils.isBlank(date) == false) {
+       return iexClient.getHistoricalPricesDate(symbol, date);
+    } else if(date == null && range != null) {
+      if(range.equals("")) {
         throw new HttpMessageNotReadableException("\"range\" is not allowed to be empty");
       }
       return iexClient.getHistoricalPricesRange(symbol, range);
-    } else if ((StringUtils.isBlank(range)) && StringUtils.isBlank(date) == false) { // Date specified but not range
-      if(date == ""){
+    } else if(range == null && date != null) { // No range but date is not Empty
+      if(date.equals("")) {
         throw new HttpMessageNotReadableException("\"date\" is not allowed to be empty");
       }
       return iexClient.getHistoricalPricesDate(symbol, date);
     }
 
-    // All parameters were valid
-    return iexClient.getHistoricalPricesForSymbols(symbol, range, date);
+    return iexClient.getHistoricalPricesForSymbol(symbol);
+
   }
 }

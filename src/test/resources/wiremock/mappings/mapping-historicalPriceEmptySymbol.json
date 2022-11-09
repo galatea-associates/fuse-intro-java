@@ -1,7 +1,7 @@
 {
   "name" : "historical_price_empty_symbol",
   "request" : {
-    "url" : "/stock//chart",
+    "url" : "/stock//chart?token=DUMMY_TOKEN",
     "method" : "GET"
   },
   "response" : {
