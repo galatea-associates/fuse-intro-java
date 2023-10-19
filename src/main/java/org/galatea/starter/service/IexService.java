@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.galatea.starter.domain.IexHistoricalPrice;
 import org.galatea.starter.domain.IexLastTradedPrice;
 import org.galatea.starter.domain.IexSymbol;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class IexService {
    * @return a list of all Stock Symbols from IEX.
    */
   public List<IexSymbol> getAllSymbols() {
+    System.out.println(IexClient.getStr());
     return iexClient.getAllSymbols();
   }
 
@@ -45,5 +47,19 @@ public class IexService {
     }
   }
 
+  public List<IexHistoricalPrice> getHistoricalPrices(final String symbols, final String range, final String date){
+    if(symbols == null){
+      return Collections.emptyList();
+    }
+    else if(range == null){
+      return iexClient.getHistoricalPricesForSymbol(symbols);
+    }
+    else if(date == null){
+      return iexClient.getHistoricalPricesForRange(symbols, range);
+    }
+    else{
+      return iexClient.getHistoricalPricesForDate(symbols, date);
+    }
+  }
 
 }
