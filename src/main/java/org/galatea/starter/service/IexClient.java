@@ -15,50 +15,61 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(name = "IEX", url = "${spring.rest.iexBasePath}")
 public interface IexClient {
-  String token = "${spring.rest.iex.token}$";
+
+
   /**
    * Get a list of all stocks supported by IEX. See https://iextrading.com/developer/docs/#symbols.
    * As of July 2019 this returns almost 9,000 symbols, so maybe don't call it in a loop.
    *
+   * @param token token
    * @return a list of all of the stock symbols supported by IEX.
    */
-  @GetMapping("/ref-data/symbols?token=" + token)
-  List<IexSymbol> getAllSymbols();
+  @GetMapping("/ref-data/symbols?")
+  List<IexSymbol> getAllSymbols(@RequestParam("token") String token);
 
   /**
    * Get the last traded price for each stock symbol passed in. See https://iextrading.com/developer/docs/#last.
    *
    * @param symbols stock symbols to get last traded price for.
+   * @param token token
    * @return a list of the last traded price for each of the symbols passed in.
    */
-  @GetMapping("/tops/last/{symbol}&token=" + token)
-  List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols);
+  @GetMapping("/tops/last")
+  List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols,
+                                                        @RequestParam("token") String token);
 
   /**
+   * Get historical prices using only symbols.
    *
-   * @param symbols stock symbols to get historical data for
+   * @param symbol stock symbols to get historical data for
    * @return a list of the historical price for the stock symbol passed in
    */
-  @GetMapping("/stock/{symbol}/chart?token=" + token)
+  @GetMapping("/stock/{symbol}/chart")
   List<IexHistoricalPrice> getHistoricalPricesForSymbol(@RequestParam("symbol") String symbol);
 
   /**
+   * Get historical prices using symbols and a range.
    *
-   * @param symbols stock symbols to get historical data for
+   * @param symbol stock symbols to get historical data for
    * @param range time range
    * @return a list of the historical price for the stock symbol passed in and the range passed in
    */
-  @GetMapping("/stock/{symbol}/chart/{range}?token=" + token)
-  List<IexHistoricalPrice> getHistoricalPricesForRange(@RequestParam("symbol") String symbol, @RequestParam("range") String range);
+  @GetMapping("/stock/{symbol}/chart/{range}")
+  List<IexHistoricalPrice> getHistoricalPricesForRange(
+      @RequestParam("symbol") String symbol,
+      @RequestParam("range") String range);
 
   /**
+   * Get historical prices using symbol and a date.
    *
-   * @param symbols stock symbols to get historical data for
+   * @param symbol stock symbols to get historical data for
    * @param date specified date to get the price for
    * @return a list of the historical price for the stock symbol passed in and the date passed in
    */
-  @GetMapping("/stock/{symbol}/chart/date/{date}?token=" + token)
-  List<IexHistoricalPrice> getHistoricalPricesForDate(@RequestParam("symbol") String symbol, @RequestParam("date") String date);
+  @GetMapping("/stock/{symbol}/chart/date/{date}")
+  List<IexHistoricalPrice> getHistoricalPricesForDate(
+      @RequestParam("symbol") String symbol,
+      @RequestParam("date") String date);
 
 
 

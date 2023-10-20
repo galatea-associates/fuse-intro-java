@@ -45,7 +45,7 @@ public class IexRestControllerTest extends ASpringTest {
     MvcResult result = this.mvc.perform(
         // note that we were are testing the fuse REST end point here, not the IEX end point.
         // the fuse end point in turn calls the IEX end point, which is WireMocked for this test.
-        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/iex/symbols")
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get("/iex/symbols?token=pk_b13d22c163814587aee834dbc8a768e9")
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         // some simple validations, in practice I would expect these to be much more comprehensive.
@@ -60,7 +60,7 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-            .get("/iex/lastTradedPrice?symbols=FB")
+            .get("/iex/lastTradedPrice?symbols=FB&token=pk_b13d22c163814587aee834dbc8a768e9")
             // This URL will be hit by the MockMvc client. The result is configured in the file
             // src/test/resources/wiremock/mappings/mapping-lastTradedPrice.json
             .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -75,22 +75,28 @@ public class IexRestControllerTest extends ASpringTest {
 
     MvcResult result = this.mvc.perform(
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-            .get("/iex/lastTradedPrice?symbols=")
+            .get("/iex/lastTradedPrice?symbols=&token=pk_b13d22c163814587aee834dbc8a768e9")
             .accept(MediaType.APPLICATION_JSON_VALUE))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$", is(Collections.emptyList())))
         .andReturn();
   }
-//  @Test
-//  public void testGetHistoricalPricesForSymbol() throws Exception{
-//
-//    MvcResult result = this.mvc.perform(
-//        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-//            .get("/iex/getHistoricalPrice")
-//            .accept(MediaType.APPLICATION_JSON_VALUE))
-//        .andExpect(status().isOk())
-//        .andExpect()
-//
-//
-//  }
+  @Test
+  public void testGetHistoricalPricesForSymbol() throws Exception{
+
+    MvcResult result = this.mvc.perform(
+        org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+            .get("/iex/historicalPrices?aapl/chart/2d?token=pk_b13d22c163814587aee834dbc8a768e9")
+            .accept(MediaType.APPLICATION_JSON_VALUE))
+        .andExpect(status().isNotFound())
+        .andExpect(jsonPath("$[0].symbol", is("AAPL")))
+        .andExpect(jsonPath("$[0].date", is("2020-01-26")))
+        .andExpect(jsonPath("$[0].open", is(new BigDecimal("141.065"))))
+        .andExpect(jsonPath("$[0].close", is(new BigDecimal("142.41"))))
+        .andExpect(jsonPath("$[0].high", is(new BigDecimal("142.9"))))
+        .andExpect(jsonPath("$[0].low", is(new BigDecimal("140.27"))))
+        .andExpect(jsonPath("$[0].volume", is(85250939L))) //should be long
+        .andReturn();
+
+  }
 }
