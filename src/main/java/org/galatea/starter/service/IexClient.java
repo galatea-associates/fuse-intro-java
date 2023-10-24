@@ -38,39 +38,20 @@ public interface IexClient {
   List<IexLastTradedPrice> getLastTradedPriceForSymbols(@RequestParam("symbols") String[] symbols,
                                                         @RequestParam("token") String token);
 
-  /**
-   * Get historical prices using only symbols.
-   *
-   * @param symbol stock symbols to get historical data for
-   * @return a list of the historical price for the stock symbol passed in
-   */
-  @GetMapping("/stock/{symbol}/chart")
-  List<IexHistoricalPrice> getHistoricalPricesForSymbol(@RequestParam("symbol") String symbol);
-
-  /**
-   * Get historical prices using symbols and a range.
-   *
-   * @param symbol stock symbols to get historical data for
-   * @param range time range
-   * @return a list of the historical price for the stock symbol passed in and the range passed in
-   */
-  @GetMapping("/stock/{symbol}/chart/{range}")
-  List<IexHistoricalPrice> getHistoricalPricesForRange(
-      @RequestParam("symbol") String symbol,
-      @RequestParam("range") String range);
-
+ 
   /**
    * Get historical prices using symbol and a date.
    *
    * @param symbol stock symbols to get historical data for
+   * @param range time range
    * @param date specified date to get the price for
    * @return a list of the historical price for the stock symbol passed in and the date passed in
    */
-  @GetMapping("/stock/{symbol}/chart/date/{date}")
-  List<IexHistoricalPrice> getHistoricalPricesForDate(
-      @RequestParam("symbol") String symbol,
-      @RequestParam("date") String date);
-
+  @GetMapping("/stock/{symbol}/chart/{range}/{date}")
+  List<IexHistoricalPrice> getHistoricalPriceForSymbol(
+        @RequestParam("symbol") String symbol,
+        @RequestParam(value = "range", required = false) String range,
+        @RequestParam("date") String date);
 
 
 }

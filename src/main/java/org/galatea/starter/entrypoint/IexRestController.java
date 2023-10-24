@@ -59,14 +59,15 @@ public class IexRestController {
    * @param date if we want to specify a date to search rather than a range
    * @return a List of IexLastTradedPrice objects for the given symbols.
    */
-  @GetMapping(value = "${mvc.iex.getHistoricalPricesPath}$", produces = {
+  @GetMapping(value = "${mvc.iex.getHistoricalPricePath}$", produces = {
       MediaType.APPLICATION_JSON_VALUE})
-  public List<IexHistoricalPrice> getHistoricPrice(
+  public List<IexHistoricalPrice> getHistoricalPrice(
       @RequestParam(value = "symbol") final String symbol,
-      @RequestParam(value = "range") final String range,
-      @RequestParam(value = "date") final String date) {
+      @RequestParam(value = "range", required = false, defaultValue = "") final String range,
+      @RequestParam(value = "date", required = false, defaultValue = "") final String date) {
 
-    return iexService.getHistoricalPrices(symbol, range, date);
+    System.out.println("ASDF");
+    return iexService.getHistoricalPriceForSymbol(symbol, range, date);
   }
 
 }

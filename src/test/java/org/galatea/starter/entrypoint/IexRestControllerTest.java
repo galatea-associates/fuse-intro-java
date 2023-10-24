@@ -82,13 +82,13 @@ public class IexRestControllerTest extends ASpringTest {
         .andReturn();
   }
   @Test
-  public void testGetHistoricalPricesForSymbol() throws Exception{
+  public void testGetHistoricalPriceForSymbol() throws Exception{
 
     MvcResult result = this.mvc.perform(
         org.springframework.test.web.servlet.request.MockMvcRequestBuilders
-            .get("/iex/historicalPrices?aapl/chart/2d?token=pk_b13d22c163814587aee834dbc8a768e9")
+            .get("/iex/historicalPrice?symbol=AAPL&range=6m&token=pk_b13d22c163814587aee834dbc8a768e9")
             .accept(MediaType.APPLICATION_JSON_VALUE))
-        .andExpect(status().isNotFound())
+        .andExpect(status().isOk())
         .andExpect(jsonPath("$[0].symbol", is("AAPL")))
         .andExpect(jsonPath("$[0].date", is("2020-01-26")))
         .andExpect(jsonPath("$[0].open", is(new BigDecimal("141.065"))))
