@@ -10,10 +10,10 @@ public class IexHistoricalPrice {
 
   private String symbol;
   private String date;
-  private Integer volume;
+  private long volume;
   private BigDecimal close;
   private BigDecimal high;
   private BigDecimal low;
   private BigDecimal open;
-  
+
 }

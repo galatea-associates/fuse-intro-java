@@ -3,7 +3,7 @@
     {
       "name": "historical_prices_base",
       "request": {
-        "url": "/stock/AAPL/chart//?token=pk_b13d22c163814587aee834dbc8a768e9",
+        "url": "/stock/AAPL/chart?token=pk_b13d22c163814587aee834dbc8a768e9",
         "method": "GET"
       },
       "response": {
@@ -60,7 +60,7 @@
     {
       "name": "historical_prices_date",
       "request": {
-        "url": "/stock/AAPL/chart//20220104?token=pk_b13d22c163814587aee834dbc8a768e9",
+        "url": "/stock/AAPL/chart/20220104?token=pk_b13d22c163814587aee834dbc8a768e9",
         "method": "GET"
       },
       "response": {
@@ -126,7 +126,7 @@
     {
       "name": "historical_prices_range",
       "request": {
-        "url": "/stock/AAPL/chart/6m/?token=pk_b13d22c163814587aee834dbc8a768e9",
+        "url": "/stock/AAPL/chart/6m?token=pk_b13d22c163814587aee834dbc8a768e9",
         "method": "GET"
       },
       "response": {
@@ -192,7 +192,7 @@
     {
       "name": "historical_prices_no_symbol",
       "request": {
-        "url": "/stock//chart/6m/?token=pk_b13d22c163814587aee834dbc8a768e9",
+        "url": "/stock/chart/6m/?token=abc",
         "method": "GET"
       },
       "response": {
@@ -228,7 +228,7 @@
     {
       "name": "historical_prices_invalid_symbol",
       "request": {
-        "url": "/stock/invalid/chart//?token=pk_b13d22c163814587aee834dbc8a768e9",
+        "url": "/stock/invalid/chart//?token=abc",
         "method": "GET"
       },
       "response": {
